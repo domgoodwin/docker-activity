@@ -1,7 +1,7 @@
 mod file;
+mod prometheus;
 mod socket;
 mod stdout;
-
 use crate::model::Record;
 use clap::Parser;
 
@@ -26,6 +26,9 @@ pub enum Output {
     /// Write to standard output.
     #[clap()]
     Stdout(stdout::StdOutOutput),
+    /// Write to memory and expose on /metrics.
+    #[clap()]
+    Prometheus(prometheus::PrometheusOutput),
 }
 
 impl Output {
@@ -36,6 +39,7 @@ impl Output {
             Self::UnixSocket(socket) => socket.exporter(),
             Self::TcpSocket(socket) => socket.exporter(),
             Self::Stdout(socket) => socket.exporter(),
+            Self::Prometheus(socket) => socket.exporter(),
         }
     }
 }
