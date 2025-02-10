@@ -37,7 +37,9 @@ pub struct PrometheusExporter {
     // Exporter of metrics
     exporter: prometheus_exporter::Exporter,
     // counter
+    // TODO: move to counter with tags
     counters: HashMap<String, GenericCounter<AtomicF64>>,
+    // TODO: add gauges
 }
 
 impl Exporter for PrometheusExporter {
